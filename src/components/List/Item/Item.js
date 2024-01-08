@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, TouchableOpacity, Alert } from "react-native";
 import styles from "./itemStyles";
 import db from "../../../../database/db";
+import { Feather as Icon } from "@expo/vector-icons";
 
 export default function ItemList(props) {
   async function handleEditPress() {
@@ -40,10 +41,14 @@ export default function ItemList(props) {
           style={styles.deleteButton}
           onPress={handleDeletePress}
         >
-          <Text style={styles.buttonText}>X</Text>
+          <Text style={styles.buttonText}>
+            <Icon name="trash" color="white" size={18} />
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.editButton} onPress={handleEditPress}>
-          <Text style={styles.buttonText}>Editar</Text>
+          <Text style={styles.buttonText}>
+            <Icon name="edit" color="white" size={18} />
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

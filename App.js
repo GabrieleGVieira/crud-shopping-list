@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Tab from './src/components/Tab/Tab';
+import { StatusBar } from "expo-status-bar";
+import Tab from "./src/components/Tab/Tab";
+import React from "react";
 
 export default function App() {
   return (
@@ -10,12 +10,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

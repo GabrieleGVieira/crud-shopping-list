@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "./formStyles";
+import { Feather as Icon } from "@expo/vector-icons";
 
 import db from "../../../database/db";
 
@@ -61,7 +62,10 @@ export default function Form({ route, navigation }) {
           value={amount}
         />
         <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-          <Text style={styles.buttonText}>Salvar</Text>
+          <Text style={styles.buttonText}>
+            <Icon name="save" size={22} color="white" />
+            Salvar
+          </Text>
         </TouchableOpacity>
       </View>
       <StatusBar style="light" />
