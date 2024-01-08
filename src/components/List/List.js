@@ -1,22 +1,16 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, ScrollView } from "react-native";
 import styles from "./listStyles";
 import ItemList from "./Item/Item";
+import db from "../../../database/db";
 
-export default function List() {
-  const [items, setItems] = useState([
-    { id: 1, amount: 5, description: "arroz" },
-    { id: 2, amount: 1, description: "feijão" },
-    { id: 3, amount: 0.5, description: "lentilha" },
-    { id: 4, amount: 1, description: "massa" },
-    { id: 5, amount: 1, description: "katchup" },
-    { id: 6, amount: 1, description: "queijo-ralado" },
-    { id: 7, amount: 1, description: "bacon" },
-    { id: 8, amount: 1, description: "linguiça" },
-    { id: 9, amount: 1, description: "refrigerante" },
-    { id: 10, amount: 1, description: "queijo-minas" },
-  ]);
+export default function List({route, navigation}) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    db.getItems().then(items => setItems(items));
+  }, [route]);
 
   return (
     <View style={styles.container}>

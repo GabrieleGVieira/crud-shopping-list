@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "./formStyles"
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import db from "../../../database/db"
 
 export default function Form({navigation}) {
 
   const [description, setDescription] = useState('')
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState("")
 
   function handleDescriptionChange(description) {
     setDescription(description);;
@@ -19,14 +20,8 @@ export default function Form({navigation}) {
 
   async function handleButtonPress() {
     const listItem = { id: new Date().getTime(), description, amount: parseInt(amount)};
-    let savedItems = []
-    const response = await AsyncStorage.getItem("items")
-
-    if (response) savedItems = JSON.parse(response)
-    savedItems.push(listItem)
     
-    await AsyncStorage.setItem("items", JSON.stringify(savedItems))
-    navigation.navigate("List", listItem)
+    db.saveItem(listItem).then(response => navigation.navigate("List", listItem))
   }
 
     return (

@@ -11,6 +11,16 @@ async function saveItem(listItem) {
   return AsyncStorage.setItem("items", JSON.stringify(savedItems));
 }
 
+async function getItems() {
+  return AsyncStorage.getItem("items").then(response => {
+    if (response)
+      return Promise.resolve(JSON.parse(response));
+    else
+      return Promise.resolve([]);
+  })
+}
+
 module.exports = {
   saveItem,
+  getItems
 };
