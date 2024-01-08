@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "./formStyles"
 
 import db from "../../../database/db"
 
-export default function Form({navigation}) {
+export default function Form({ route, navigation }) {
+  
+  // Create
 
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState("")
@@ -24,6 +26,17 @@ export default function Form({navigation}) {
     db.saveItem(listItem).then(response => navigation.navigate("List", listItem))
   }
 
+   //Update
+
+  const id = route.params ? route.params.id : undefined
+
+  useEffect(() => {
+    if (!route.params) return;
+    setDescription(route.params.description)
+    setAmount(route.params.amount.toString());
+  }, [route])
+
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Item Para Compra</Text>
@@ -33,6 +46,7 @@ export default function Form({navigation}) {
             placeholder="O que está faltando em casa?"
             clearButtonMode="always"
             onChangeText={handleDescriptionChange}
+            value={description}
           />
           <TextInput
             style={styles.input}
@@ -40,6 +54,7 @@ export default function Form({navigation}) {
             keyboardType={"numeric"}
             clearButtonMode="always"
             onChangeText={handleAmountChange}
+            value={amount}
           />
           <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
             <Text style={styles.buttonText}>Salvar</Text>

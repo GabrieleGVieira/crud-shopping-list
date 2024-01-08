@@ -20,7 +20,13 @@ async function getItems() {
   })
 }
 
+async function getItem(id) {
+  const savedItems = await getItems();
+  return savedItems.find(item => item.id === id);
+}
+
 module.exports = {
   saveItem,
-  getItems
+  getItems,
+  getItem
 };

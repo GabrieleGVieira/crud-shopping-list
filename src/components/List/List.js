@@ -26,6 +26,7 @@ export default function List({route, navigation}) {
               key={item.id}
               id={item.id}
               item={item.amount + "  de " + item.description}
+              navigation={navigation}
             />
           );
         })}
