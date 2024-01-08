@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "./formStyles"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Form({navigation}) {
 
@@ -16,9 +17,16 @@ export default function Form({navigation}) {
     setAmount(amount)
   }
 
-  function handleButtonPress() {
-    console.log({ id: new Date().getTime(), description, amount });
-    navigation.navigate("List")
+  async function handleButtonPress() {
+    const listItem = { id: new Date().getTime(), description, amount: parseInt(amount)};
+    let savedItems = []
+    const response = await AsyncStorage.getItem("items")
+
+    if (response) savedItems = JSON.parse(response)
+    savedItems.push(listItem)
+    
+    await AsyncStorage.setItem("items", JSON.stringify(savedItems))
+    navigation.navigate("List", listItem)
   }
 
     return (
